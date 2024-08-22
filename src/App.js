@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import './App.css'; 
 
 function App() {
 
@@ -9,6 +9,7 @@ function App() {
     fetch("/api/user")
     .then(res => res.json())
     .then(json => setUser(json))//console.log(json))
+    .catch(err => console.error("Error fetching users:", err));
   }
 
 
@@ -18,16 +19,17 @@ function App() {
 
 
   return (
-    <div className="App">
-      {user.map((data)=>{
-        return <>
-        <div>
-        <h1>Name : {data.name}</h1>
-        <h1>UserName : {data.username}</h1>
-        <h1>Email : {data.email}</h1>
-        </div>
-        </>
-      })}
+<div className="App">
+      <h1 className="title">User Information</h1>
+      <div className="user-container">
+        {user.map((data, index) => (
+          <div key={index} className="user-card">
+            <h2>{data.name}</h2>
+            <p><strong>Username:</strong> {data.username}</p>
+            <p><strong>Email:</strong> {data.email}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
